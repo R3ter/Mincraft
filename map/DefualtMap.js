@@ -14,6 +14,7 @@ const defaultMap = {
   "0,0,0": createBlock("0,0,0"),
   "0.3,0,0": createBlock("0.3,0,0"),
 };
+
 const setDefaultMap = () => {
   AddTilesArray(defaultMap);
 };

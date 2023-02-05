@@ -1,7 +1,6 @@
 import * as THREE from "three";
-import { convertObjectToKey } from "./func/positions";
+import controllers from "./func/Controls";
 import { setInitBlocks } from "./map/DefualtMap";
-import tiles, { changePosition, tilesArray } from "./map/tiles";
 
 const init = () => {
   const camera = new THREE.PerspectiveCamera(
@@ -23,18 +22,9 @@ const init = () => {
 };
 
 const { renderer, camera, scene } = init();
-
+const controller = controllers(camera, document.body);
 function update(time) {
-  const tile = tilesArray.get(0);
-  console.log("TCL: update -> tile", tile.position);
+  controller(0.02);
 
-  changePosition(
-    convertObjectToKey(tile.position),
-    convertObjectToKey({
-      x: tile.position.x + 0.0001,
-      y: tile.position.z,
-      z: tile.position.z,
-    })
-  );
   renderer.render(scene, camera);
 }
