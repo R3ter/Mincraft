@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import controllers from "./func/Controls";
+import { Gravity } from "./func/Physics";
 import { setInitBlocks } from "./map/DefualtMap";
 
 const init = () => {
@@ -18,6 +19,22 @@ const init = () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setAnimationLoop(update);
   document.body.appendChild(renderer.domElement);
+
+  //setting background image
+  const loader = new THREE.CubeTextureLoader();
+  loader.setPath("BackgroundImages/");
+
+  const textureCube = loader.load([
+    "panorama_2.png",
+    "panorama_0.png",
+    "panorama_4.png",
+    "panorama_5.png",
+    "panorama_1.png",
+    "panorama_3.png",
+  ]);
+  scene.background = textureCube;
+  //////////////
+
   return { renderer, camera, scene };
 };
 
@@ -25,6 +42,6 @@ const { renderer, camera, scene } = init();
 const controller = controllers(camera, document.body);
 function update(time) {
   controller(0.02);
-
+  Gravity(camera);
   renderer.render(scene, camera);
 }

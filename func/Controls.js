@@ -13,7 +13,6 @@ const controllers = (camera, obj) => {
   function keyup(e) {
     keys[e.key] = false;
   }
-
   obj.addEventListener(
     "click",
     function () {
