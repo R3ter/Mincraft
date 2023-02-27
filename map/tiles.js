@@ -1,35 +1,34 @@
 import { convertKeyToObject } from "../func/positions";
+import Map from "./DefualtMap";
 
-const tiles = {};
 const addTile = ({ material, geometry, position }) => {
-  tiles[position] = { material, geometry };
+  Map.tiles[position] = { material, geometry };
 };
 const removeTile = (position) => {
-  delete tiles[position];
+  delete Map.tiles[position];
 };
 const tilesArray = {
   get: (i) => {
-    const result = Object.keys(tiles).map((key) => tiles[key]);
-    console.log(result);
+    const result = Object.keys(Map.tiles).map((key) => Map.tiles[key]);
     return result[i];
   },
   getAll: () =>
-    Object.keys(tiles).map((key) => ({ ...tiles[key], position: key })),
+    Object.keys(Map.tiles).map((key) => ({ ...Map.tiles[key], position: key })),
 };
 const changePosition = (oldPos, newPos) => {
-  if (oldPos !== newPos && tiles[oldPos]) {
-    tiles[newPos] = tiles[oldPos];
+  if (oldPos !== newPos && Map.tiles[oldPos]) {
+    Map.tiles[newPos] = Map.tiles[oldPos];
     const obPos = convertKeyToObject(newPos);
-    tiles[newPos].position = obPos;
-    console.log(tiles[newPos].mesh.position);
-    tiles[newPos].mesh.position.set(obPos.x, obPos.y, obPos.z);
-    delete tiles[oldPos];
+    Map.tiles[newPos].position = obPos;
+    Map.tiles[newPos].mesh.position.set(obPos.x, obPos.y, obPos.z);
+    delete Map.tiles[oldPos];
   }
+  return Map.tiles[newPos];
 };
 const AddTilesArray = (tilesArray) => {
   for (let [key, value] of Object.entries(tilesArray)) {
-    tiles[key] = value;
+    Map.tiles[key] = value;
   }
 };
 export { tilesArray, addTile, removeTile, changePosition, AddTilesArray };
-export default tiles;
+export default Map.tiles;

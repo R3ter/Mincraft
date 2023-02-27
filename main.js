@@ -1,7 +1,7 @@
 import * as THREE from "three";
+import { setInitBlocks } from "./map/DefualtMap";
 import controllers from "./func/Controls";
 import { Gravity } from "./func/Physics";
-import { setInitBlocks } from "./map/DefualtMap";
 
 const init = () => {
   const camera = new THREE.PerspectiveCamera(
